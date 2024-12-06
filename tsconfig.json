@@ -1,0 +1,51 @@
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+//    "skipLibCheck": true,
+//    "strict": true, // Enable strict type-checking options
+//    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+//    "esModuleInterop": true,
+    "module": "esnext",
+//    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+//    "jsx": "preserve",
+    "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
