@@ -5,6 +5,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/navigation';
 import AssignmentForm from '@/components/AssignmentForm';
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 // Мокаем useRouter из next/navigation
 jest.mock('next/navigation', () => ({
@@ -17,22 +18,19 @@ describe('AssignmentForm', () => {
   const mockLevelsError = null;
 
   beforeEach(() => {
-    // Приводим useRouter к типу jest.MockedFunction
     const mockedUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
-    mockedUseRouter.mockReturnValue({
+
+    const mockRouter: Partial<AppRouterInstance> = {
       push,
       back: jest.fn(),
       forward: jest.fn(),
       refresh: jest.fn(),
       replace: jest.fn(),
       prefetch: jest.fn().mockResolvedValue(undefined),
-    } as any);
-  });
+    };
 
-  afterEach(() => {
-    jest.clearAllMocks();
+    mockedUseRouter.mockReturnValue(mockRouter as AppRouterInstance);
   });
-
   test('renders all form fields correctly', () => {
     render(<AssignmentForm levels={mockLevels} levelsError={mockLevelsError} />);
 

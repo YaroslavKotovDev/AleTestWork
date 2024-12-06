@@ -1,3 +1,4 @@
+// jest.config.ts
 import type { Config } from 'jest';
 
 const config: Config = {
@@ -13,7 +14,7 @@ const config: Config = {
     ],
     moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
     transform: {
-        '^.+\\.[tj]sx?$': 'ts-jest',
+        '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest'
     },
     transformIgnorePatterns: [
         '/node_modules/',

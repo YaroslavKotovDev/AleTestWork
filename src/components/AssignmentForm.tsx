@@ -12,6 +12,14 @@ type AssignmentFormProps = {
   levelsError: string | null;
 };
 
+interface FormInputs {
+  name: string;
+  email: string;
+  assignmentDescription: string;
+  githubRepoUrl: string;
+  candidateLevel: string;
+}
+
 /**
  * AssignmentForm component allows users to submit their assignments.
  *
@@ -24,7 +32,7 @@ const AssignmentForm: React.FC<AssignmentFormProps> = ({ levels, levelsError }) 
     handleSubmit,
     formState: { errors, isValid },
     setError,
-  } = useForm({ mode: 'onChange' });
+  } = useForm<FormInputs>({ mode: 'onChange' });
 
   const router = useRouter(); // Initialize Next.js router for navigation
 
@@ -33,7 +41,7 @@ const AssignmentForm: React.FC<AssignmentFormProps> = ({ levels, levelsError }) 
    *
    * @param {FormData} data - The data submitted by the user.
    */
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
       // Call the API utility to submit the assignment
       await submitAssignment({
@@ -46,26 +54,25 @@ const AssignmentForm: React.FC<AssignmentFormProps> = ({ levels, levelsError }) 
 
       // Redirect the user to the thank-you page upon successful submission
       router.push('/thank-you');
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { errors?: string[] } } };
       // Check if the error response contains validation errors
-      if (error.response && error.response.data && error.response.data.errors) {
-        // Iterate through each error message returned by the API
-        error.response.data.errors.forEach((err: string) => {
-          // Set field-specific errors based on the error message content
-          if (err.toLowerCase().includes('name')) {
-            setError('name', { message: err });
+      if (err.response && err.response.data && err.response.data.errors) {
+        err.response.data.errors.forEach((errMessage: string) => {
+          if (errMessage.toLowerCase().includes('name')) {
+            setError('name', { message: errMessage });
           }
-          if (err.toLowerCase().includes('email')) {
-            setError('email', { message: err });
+          if (errMessage.toLowerCase().includes('email')) {
+            setError('email', { message: errMessage });
           }
-          if (err.toLowerCase().includes('assignment')) {
-            setError('assignmentDescription', { message: err });
+          if (errMessage.toLowerCase().includes('assignment')) {
+            setError('assignmentDescription', { message: errMessage });
           }
-          if (err.toLowerCase().includes('github')) {
-            setError('githubRepoUrl', { message: err });
+          if (errMessage.toLowerCase().includes('github')) {
+            setError('githubRepoUrl', { message: errMessage });
           }
-          if (err.toLowerCase().includes('candidate level')) {
-            setError('candidateLevel', { message: err });
+          if (errMessage.toLowerCase().includes('candidate level')) {
+            setError('candidateLevel', { message: errMessage });
           }
         });
       } else {

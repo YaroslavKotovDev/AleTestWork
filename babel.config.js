@@ -1,21 +1,14 @@
 module.exports = {
-    // presets: [
-    //     ['@babel/preset-env'],
-    //     '@babel/preset-typescript',
-    // ],
-    "presets": [
-        ["@babel/env", {"modules": false}],
-        '@babel/preset-react',
+    presets: [
+        'next/babel',
         '@babel/preset-typescript',
+        ['@babel/preset-react', { runtime: 'automatic' }],
     ],
-    "plugins": [
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-syntax-import-meta",
-        ["@babel/plugin-proposal-class-properties", {"loose": false}],
-        ["babel-plugin-root-import", {
-            "rootPathSuffix": "src",
-            "rootPathPrefix": "@"
-        }]
-    ]
+    // plugins: [
+    //     ['babel-plugin-root-import', {
+    //         "rootPathSuffix": "src",
+    //         "rootPathPrefix": "@"
+    //     }]
+    // ],
+    // ignore: ['node_modules'],
 };
-

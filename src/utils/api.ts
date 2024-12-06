@@ -2,6 +2,11 @@
 
 import axios from 'axios';
 
+interface AssignmentResponse {
+  success: boolean;
+  message?: string;
+}
+
 /**
  * Fetches the list of candidate levels from the API.
  *
@@ -39,7 +44,7 @@ export const submitAssignment = async (data: {
   assignment_description: string;
   github_repo_url: string;
   candidate_level: string;
-}): Promise<Object> => {
+}): Promise<AssignmentResponse> => {
   try {
     // Send a POST request to the API endpoint with the assignment data
     const response = await axios.post('https://tools.qa.public.ale.ai/api/tools/candidates/assignments', data);

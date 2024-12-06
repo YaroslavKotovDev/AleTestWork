@@ -16,6 +16,7 @@ const AssignmentFormWrapper: React.FC = () => {
         const fetchedLevels = await fetchCandidateLevels();
         setLevels(fetchedLevels);
       } catch (error) {
+        console.error(error);
         setLevelsError('Failed to load candidate levels.');
       } finally {
         setLoading(false);

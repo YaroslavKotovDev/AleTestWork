@@ -23,6 +23,7 @@ const useCandidateLevels = () => {
         const fetchedLevels = await fetchCandidateLevels();
         setLevels(fetchedLevels); // Update the levels state with fetched data
       } catch (err) {
+        console.error(err)
         // Update the error state if fetching fails
         setError('Failed to load candidate levels. Please try again later.');
       } finally {

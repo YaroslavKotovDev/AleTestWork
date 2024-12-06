@@ -8,30 +8,23 @@
       "esnext"
     ],
     "allowJs": true,
-//    "skipLibCheck": true,
-//    "strict": true, // Enable strict type-checking options
-//    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-//    "esModuleInterop": true,
     "module": "esnext",
-//    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-//    "jsx": "preserve",
     "baseUrl": ".",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node16",
-    "outDir": "./build",
-    "rootDir": "./src",
+    "rootDir": ".",
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "incremental": true,
     "plugins": [
       {
@@ -40,12 +33,15 @@
     ]
   },
   "include": [
+    "src",
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "postcss.config.js",
+    "tailwind.config.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", ".next", "jest.*.ts", "next.config.ts"
   ]
 }
